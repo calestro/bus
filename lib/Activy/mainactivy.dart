@@ -30,7 +30,7 @@ class _MainActivyState extends State<MainActivy> {
   Widget build(BuildContext context) {
 
     var wd = MediaQuery.of(context).size.width;
-    var hg = MediaQuery.of(context).size.height;
+
     //Classe responsável por armazenar operações do Firebase
     CallFirebase call = CallFirebase();
 
@@ -68,7 +68,6 @@ class _MainActivyState extends State<MainActivy> {
                           itemBuilder: (context, index) {
 
                             var subtitleHours;
-
                             snapshot.data!.docs[index]["HORARIO"].forEach((element) {
                             if(double.parse(element) > call.hourToComplete(DateTime.now().hour,DateTime.now().minute)
                                 && (double.parse(element) < call.houradditing10(DateTime.now().hour,DateTime.now().minute))){
