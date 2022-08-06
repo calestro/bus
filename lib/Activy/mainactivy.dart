@@ -50,7 +50,6 @@ class _MainActivyState extends State<MainActivy> {
                         child: ListView.builder(
                           itemCount: snapshot.data!.size,
                           itemBuilder: (context, index) {
-                            print("chamou o list view");
                             return ListTile(
                               title: Text(snapshot.data!.docs[index]["nome"]),
                             );
