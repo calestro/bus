@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1086367037818",
+    "firebase_url": "https://estacao-livre-default-rtdb.firebaseio.com",
+    "project_id": "estacao-livre",
+    "storage_bucket": "estacao-livre.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086367037818:android:9670f7560104018c4dbec3",
+        "android_client_info": {
+          "package_name": "com.example.bus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086367037818-2urnmp0qhp1fokibaaarin1nl1ug3b7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoJFq4Cmiwm9OOq8rWUWWJ2q6riSLIdqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086367037818-2urnmp0qhp1fokibaaarin1nl1ug3b7b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1086367037818-kv2h410bbsh1e068td2bm3h9fmov1c3g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bus"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
