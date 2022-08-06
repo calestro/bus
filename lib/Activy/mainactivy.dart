@@ -5,7 +5,7 @@ import 'package:bus/Firebase/firebase_home_activy.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../Globals/Global_hours.dart';
+
 
 
 class MainActivy extends StatefulWidget {
@@ -34,8 +34,6 @@ class _MainActivyState extends State<MainActivy> {
     //Classe responsável por armazenar operações do Firebase
     CallFirebase call = CallFirebase();
 
-    //Pegando a Hora Atual no Singletoon
-    GlobalHours global = GlobalHours();
 
     return Scaffold(
       appBar: AppBar(
@@ -72,8 +70,8 @@ class _MainActivyState extends State<MainActivy> {
                             var subtitleHours;
 
                             snapshot.data!.docs[index]["HORARIO"].forEach((element) {
-                            if(double.parse(element) > global.hourToComplete(DateTime.now().hour,DateTime.now().minute)
-                                && (double.parse(element) < global.houradditing10(DateTime.now().hour,DateTime.now().minute))){
+                            if(double.parse(element) > call.hourToComplete(DateTime.now().hour,DateTime.now().minute)
+                                && (double.parse(element) < call.houradditing10(DateTime.now().hour,DateTime.now().minute))){
                               if(subtitleHours != null){subtitleHours = subtitleHours +  " " + element.toString();}
                               else {
                                 subtitleHours = element.toString();

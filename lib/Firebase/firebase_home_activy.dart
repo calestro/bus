@@ -6,20 +6,17 @@ class CallFirebase{
 
   streamFirebase(){
 
-    var hourNow = DateTime.now().hour;
-    var minuteNow = DateTime.now().minute;
-
-
-
     //Criando Lista  para procurar onibus
     List busSearch = [];
 
     //Adicionando todos os onibus nos proximos 10 min dentro do Array
     for (int i = 1; i < 10 ;i = i + 1) {
 
+      //pega a hora e minuto atuais
+      var h= DateTime.now().hour;
+      var m = DateTime.now().minute;
 
-      var h = hourNow;
-      var m = minuteNow;
+      // variavel que converte double para string para realizar tratamentos
       var mString = "";
 
       //adicionando + 1 minuto no intervalo de 10 vezes
@@ -40,13 +37,44 @@ class CallFirebase{
         mString = m.toString();
       }
 
-      // a conversao total e string para procura + adição no array
-      var hoursString = h.toString() + "." + mString;
-      busSearch.add(hoursString);
+      // a conversao total + adição no array
+      busSearch.add(h.toString() + "." + mString);
     }
-    print(busSearch);
 
     //retornando pro Firebase
     return FirebaseFirestore.instance.collection("DIASUTEIS").where("HORARIO", arrayContainsAny: busSearch).snapshots();
   }
+
+  hourToComplete(hourNow, minuteNow){
+
+    if(minuteNow.toString().length == 2) {
+      return double.parse(hourNow.toString() + "." + minuteNow.toString());
+    }
+    else{
+      return double.parse(hourNow.toString() + "." + "0"+ minuteNow.toString());
+    }
+
+  }
+
+  houradditing10(hourNow, minuteNow){
+    minuteNow = minuteNow + 10;
+    if(minuteNow  > 60){
+      minuteNow = minuteNow  - 60;
+      hourNow = hourNow + 1;
+    }
+
+    if(minuteNow.toString().length == 2) {
+      return double.parse(hourNow.toString() + "." + minuteNow.toString());
+    }
+    else{
+      return double.parse(hourNow.toString() + "." + "0"+ minuteNow.toString());
+    }
+
+  }
+
+
+
+
 }
+
+
