@@ -1,3 +1,4 @@
+import 'package:bus/Globals/Global_hours.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -5,9 +6,10 @@ class CallFirebase{
 
   streamFirebase(){
 
-    //Pegando a Hora Atual
     var hourNow = DateTime.now().hour;
     var minuteNow = DateTime.now().minute;
+
+
 
     //Criando Lista  para procurar onibus
     List busSearch = [];
@@ -42,6 +44,8 @@ class CallFirebase{
       var hoursString = h.toString() + "." + mString;
       busSearch.add(hoursString);
     }
+    print(busSearch);
+
     //retornando pro Firebase
     return FirebaseFirestore.instance.collection("DIASUTEIS").where("HORARIO", arrayContainsAny: busSearch).snapshots();
   }

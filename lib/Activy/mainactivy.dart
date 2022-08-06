@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:bus/Compents/Search_Bar.dart';
 import 'package:bus/Firebase/firebase_home_activy.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../Globals/Global_hours.dart';
 
 
 class MainActivy extends StatefulWidget {
@@ -11,13 +15,27 @@ class MainActivy extends StatefulWidget {
   State<MainActivy> createState() => _MainActivyState();
 }
 
+
 class _MainActivyState extends State<MainActivy> {
+
+
+  void initState() {
+    super.initState();
+    //cada minuto que passa e atz o stream
+    Timer(Duration(seconds: 60), () {setState(() {print("reload");});});
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
     var wd = MediaQuery.of(context).size.width;
     var hg = MediaQuery.of(context).size.height;
+    //Classe responsável por armazenar operações do Firebase
     CallFirebase call = CallFirebase();
+
+    //Pegando a Hora Atual no Singletoon
+    GlobalHours global = GlobalHours();
 
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +57,7 @@ class _MainActivyState extends State<MainActivy> {
             StreamBuilder<QuerySnapshot>(
               stream:call.streamFirebase(),
                 builder:(context, snapshot) {
-                  switch (snapshot.connectionState) {
+                  switch (snapshot.connectionState) {   //Testando Conexão
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                       return Center(
@@ -50,8 +68,23 @@ class _MainActivyState extends State<MainActivy> {
                         child: ListView.builder(
                           itemCount: snapshot.data!.size,
                           itemBuilder: (context, index) {
+
+                            var subtitleHours;
+
+                            snapshot.data!.docs[index]["HORARIO"].forEach((element) {
+                            if(double.parse(element) > global.hourToComplete(DateTime.now().hour,DateTime.now().minute)
+                                && (double.parse(element) < global.houradditing10(DateTime.now().hour,DateTime.now().minute))){
+                              if(subtitleHours != null){subtitleHours = subtitleHours +  " " + element.toString();}
+                              else {
+                                subtitleHours = element.toString();
+                              }
+                            }
+
+                            });
+
                             return ListTile(
                               title: Text(snapshot.data!.docs[index]["nome"]),
+                              subtitle: Text(subtitleHours),
                             );
                           },
                         ),
