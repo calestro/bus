@@ -1,4 +1,5 @@
 import 'package:bus/Compents/Search_Bar.dart';
+import 'package:bus/Firebase/firebase_home_activy.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class _MainActivyState extends State<MainActivy> {
 
     var wd = MediaQuery.of(context).size.width;
     var hg = MediaQuery.of(context).size.height;
+    CallFirebase call = CallFirebase();
 
     return Scaffold(
       appBar: AppBar(
@@ -35,11 +37,28 @@ class _MainActivyState extends State<MainActivy> {
             const SizedBox(height: 20),
             //Stream
             StreamBuilder<QuerySnapshot>(
-              stream:FirebaseFirestore.instance.collection("Bus").snapshots(),
-                builder:(context, snapshot){
-
-                return Container();
-                },
+              stream:call.streamFirebase(),
+                builder:(context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    default:
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: snapshot.data!.size,
+                          itemBuilder: (context, index) {
+                            print("chamou o list view");
+                            return ListTile(
+                              title: Text(snapshot.data!.docs[index]["nome"]),
+                            );
+                          },
+                        ),
+                      );
+                  }
+                }
             ),
             //bottom
           ],
