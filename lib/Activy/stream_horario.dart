@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 
 class HorarioList extends StatefulWidget {
-  const HorarioList({Key? key}) : super(key: key);
-
+  const HorarioList({Key? key, this.back = false}) : super(key: key);
+  final bool back;
   @override
   State<HorarioList> createState() => _HorarioListState();
 }

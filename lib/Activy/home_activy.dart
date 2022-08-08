@@ -40,31 +40,63 @@ class _MainActivyState extends State<MainActivy> {
 
     MyStyle myStyle = MyStyle();
 
-    return Scaffold(
-      backgroundColor: Colors.pink,
-      appBar: AppBar(
-        title: const Text("Estação Livre"),
-        centerTitle: true,
-        elevation: 0,
+    //Pergunta ao usuário se ele realmente quer sair
+    Future<bool> onTap() async{
+      return await showDialog(
+        context: context,
+        builder: (context) =>AlertDialog(
+          title:const Text('Sair do App'),
+
+          content:const Text('Você quer sair do App ?'),
+
+          actions: <Widget>[
+
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(true),
+              child: const Text("SIM"),
+            ),
+
+            const SizedBox(height: 16),
+
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(false),
+              // ignore: prefer_const_constructors
+              child: Text("NÃO"),
+            ),
+          ],
+        ),
+      ) ?? false;
+
+    }
+
+    return WillPopScope(
+      onWillPop: onTap,
+      child: Scaffold(
         backgroundColor: Colors.pink,
-      ),
-      body:Container(
-        decoration: myStyle.boxMain,
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+        appBar: AppBar(
+          title: const Text("Estação Livre"),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.pink,
+        ),
+        body:Container(
+          decoration: myStyle.boxMain,
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
   bottomNavigationBar: BottomNavigationBar(
-    items:
-    const [
-      BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-      BottomNavigationBarItem(icon: Icon(Icons.bus_alert), label: "Horários"),
-      BottomNavigationBarItem(icon: Icon(Icons.help_rounded), label: "3"),
-    ],
-    backgroundColor: Colors.grey[200],
-    selectedItemColor: Colors.amber[800],
-    unselectedItemColor: Colors.pink,
-    currentIndex: _selectedIndex,
-    onTap: _onItemTapped,
+      items:
+      const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        BottomNavigationBarItem(icon: Icon(Icons.bus_alert), label: "Horários"),
+        BottomNavigationBarItem(icon: Icon(Icons.help_rounded), label: "3"),
+      ],
+      backgroundColor: Colors.grey[200],
+      selectedItemColor: Colors.amber[800],
+      unselectedItemColor: Colors.pink,
+      currentIndex: _selectedIndex,
+      onTap: _onItemTapped,
   ),
+      ),
     );
   }
 }

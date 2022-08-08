@@ -6,7 +6,7 @@ class MyStyle{
   //Text Style
   final TextStyle advertion = const TextStyle(color: Colors.red);
   final TextStyle title = const TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
-  final TextStyle subtitle = const TextStyle(color: Colors.amber, fontSize: 19);
+  final TextStyle subtitle = const TextStyle(color: Colors.amber, fontSize: 19, fontWeight: FontWeight.bold);
 
 
 //BoxDecoration Background
