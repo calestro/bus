@@ -75,6 +75,29 @@ class CallFirebase{
 
   }
 
+  subtitleHour(snapshot, index){
+    String? subtitleHours;
+
+    snapshot.data!.docs[index]["HORARIO"].forEach((element) {
+      if(double.parse(element) > hourToComplete(DateTime.now().toLocal().hour,DateTime.now().toLocal().minute)
+          && (double.parse(element) < houradditing10(DateTime.now().toLocal().hour,DateTime.now().toLocal().minute)))
+      {
+        if(subtitleHours != null){subtitleHours = "${subtitleHours!} / $element";}
+        else
+        {
+          subtitleHours = element.toString();
+        }
+        if(subtitleHours!.length == 4)
+        {
+          subtitleHours = "0$subtitleHours";
+        }
+
+      }
+
+    });
+    return subtitleHours!.replaceAll(".", ":");
+  }
+
 
 
 
