@@ -48,8 +48,8 @@ class CallFirebase {
   addSearchBus(hours, minutes) {
     var mString = "";
 
-    if (minutes == 60) {
-      minutes = 0;
+    if (minutes >= 60) {
+      minutes = minutes - 60;
       hours = hours + 1;
     }
 
@@ -96,10 +96,10 @@ class CallFirebase {
     String? subtitleHours;
 
     snapshot.data!.docs[index]["HORARIO"].forEach((element) {
-      if (double.parse(element) >
+      if (double.parse(element) >=
               hourToComplete(DateTime.now().toLocal().hour,
                   DateTime.now().toLocal().minute) &&
-          (double.parse(element) <
+          (double.parse(element) <=
               hourAdditing10(DateTime.now().toLocal().hour,
                   DateTime.now().toLocal().minute))) {
 
@@ -112,12 +112,10 @@ class CallFirebase {
         if (subtitleHours!.length == 4) {
           subtitleHours = "0$subtitleHours";
         }
-
-        subtitleHours ??= "erro";
-
       }
     });
 
+    subtitleHours ??= "erro";
     return subtitleHours!.replaceAll(".", ":");
 
   }
