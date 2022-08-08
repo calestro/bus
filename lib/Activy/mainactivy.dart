@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'package:bus/Compents/theme.dart';
 import 'package:bus/Firebase/firebase_stream_home.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +15,6 @@ class MainActivy extends StatefulWidget {
 
 class _MainActivyState extends State<MainActivy> {
 
-  @override
-  void initState() {
-    super.initState();
-    //cada minuto que passa e atz o stream
-    Timer.periodic(const Duration(seconds: 40), (Timer t) {setState(() {});});
-  }
 
   int _selectedIndex = 0;
 
@@ -44,6 +38,8 @@ class _MainActivyState extends State<MainActivy> {
   @override
   Widget build(BuildContext context) {
 
+    MyStyle myStyle = MyStyle();
+
     return Scaffold(
       backgroundColor: Colors.pink,
       appBar: AppBar(
@@ -52,23 +48,9 @@ class _MainActivyState extends State<MainActivy> {
         elevation: 0,
         backgroundColor: Colors.pink,
       ),
-      body:Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          //Stream
-          Expanded(
-            flex: 1,
-            child: Container
-              (
-              decoration: const BoxDecoration
-                (
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft:  Radius.circular(20))
-               ),
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-          ),
-        ],
+      body:Container(
+        decoration: myStyle.boxMain,
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
   bottomNavigationBar: BottomNavigationBar(
     items:
