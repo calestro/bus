@@ -32,7 +32,7 @@ class FirebaseStreamHome extends StatelessWidget {
                           color: Colors.pinkAccent,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: const Color(0xFFf4105e),
+                            color: const Color(0xFFaf164a),
                             width: 3.0,
                             style: BorderStyle.solid,
                           ),
