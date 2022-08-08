@@ -1,106 +1,124 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+class CallFirebase {
+  List busSearch = [];
 
-class CallFirebase{
 
-  streamFirebase(){
+  //retorna para o firebase os onibus com os horarios
+  streamFirebase() {
 
-    //Criando Lista  para procurar onibus
-    List busSearch = [];
-    //pega a hora e minuto atuais
-    var h= DateTime.now().toLocal().hour;
+    var h = DateTime.now().toLocal().hour;
     var m = DateTime.now().toLocal().minute;
 
-    //Adicionando todos os onibus nos proximos 10 min dentro do Array
-    for (int i = 1; i < 10 ;i = i + 1) {
+    busSearch.clear();
 
-      // variavel que converte double para string para realizar tratamentos
-      var mString = "";
+    addSearchBus(h, m);
 
-      //adicionando + 1 minuto no intervalo de 10 vezes
+    for (int i = 1; i < 10; i = i + 1) {
       m = m + 1;
-
-      //caso os minutos deem 60 ele zera os minutos e add +1 na hora
-      if(m == 60){
-        m = 0;
-        h = h + 1;
-      }
-      //caso a hora for = 24 ele zera a hora
-      if(h == 24){
-        h=0;
-      }
-
-
-      //caso o minutos so tenha uma casa ele add + um 0 e converte minutos para string
-      if(m.toString().length == 1){
-        mString = "0$m";
-      }
-      //caso ele tenha 2 casas ele so converte para string
-      else{
-        mString = m.toString();
-      }
-
-      // a conversao total + adição no array
-      busSearch.add("$h.$mString");
+      addSearchBus(h, m);
     }
 
-    //retornando pro Firebase
-    return FirebaseFirestore.instance.collection("DIASUTEIS").where("HORARIO", arrayContainsAny: busSearch).snapshots();
+    return FirebaseFirestore.instance
+        .collection(dayReturns())
+        .where("HORARIO", arrayContainsAny: busSearch)
+        .snapshots();
   }
 
-  hourToComplete(hourNow, minuteNow){
-
-    if(minuteNow.toString().length == 2) {
-      return double.parse("$hourNow.$minuteNow");
+  //Retorna o dia para pesquisa no Firebase
+  String dayReturns() {
+    int day = DateTime.now().toLocal().weekday;
+    switch (day) {
+      case 6:
+        {
+          return "SABADO";
+        }
+      case 7:
+        {
+          return "DOMINGO";
+        }
+      default:
+        {
+          return "DIASUTEIS";
+        }
     }
-    else{
+  }
+
+  // adiciona as horas ao array de pesquisa
+  addSearchBus(hours, minutes) {
+    var mString = "";
+
+    if (minutes == 60) {
+      minutes = 0;
+      hours = hours + 1;
+    }
+
+    if (hours == 24) {
+      hours = 0;
+    }
+
+    if (minutes.toString().length == 1) {
+      mString = "0$minutes";
+    } else {
+      mString = minutes.toString();
+    }
+
+    busSearch.add("$hours.$mString");
+  }
+
+  // retorna a hora atual em double
+  hourToComplete(hourNow, minuteNow) {
+    if (minuteNow.toString().length == 2) {
+      return double.parse("$hourNow.$minuteNow");
+    } else {
       return double.parse("$hourNow.0$minuteNow");
     }
-
   }
 
-  houradditing10(hourNow, minuteNow){
+  //retorna a hora + 10 min em double
+  hourAdditing10(hourNow, minuteNow) {
     minuteNow = minuteNow + 10;
-    if(minuteNow  > 60){
-      minuteNow = minuteNow  - 60;
+    if (minuteNow > 60) {
+      minuteNow = minuteNow - 60;
       hourNow = hourNow + 1;
     }
 
-    if(minuteNow.toString().length == 2) {
+    if (minuteNow.toString().length == 2) {
       return double.parse("$hourNow.$minuteNow");
-    }
-    else{
+    } else {
       return double.parse("$hourNow.0$minuteNow");
     }
-
   }
 
-  subtitleHour(snapshot, index){
+  //pesquisa a hora no array para exibir a hora certa e converte para exibição
+  subtitleHour(snapshot, index) {
+
     String? subtitleHours;
 
     snapshot.data!.docs[index]["HORARIO"].forEach((element) {
-      if(double.parse(element) > hourToComplete(DateTime.now().toLocal().hour,DateTime.now().toLocal().minute)
-          && (double.parse(element) < houradditing10(DateTime.now().toLocal().hour,DateTime.now().toLocal().minute)))
-      {
-        if(subtitleHours != null){subtitleHours = "${subtitleHours!} / $element";}
-        else
-        {
+      if (double.parse(element) >
+              hourToComplete(DateTime.now().toLocal().hour,
+                  DateTime.now().toLocal().minute) &&
+          (double.parse(element) <
+              hourAdditing10(DateTime.now().toLocal().hour,
+                  DateTime.now().toLocal().minute))) {
+
+        if (subtitleHours != null) {
+          subtitleHours = "${subtitleHours!} / $element";
+        } else {
           subtitleHours = element.toString();
         }
-        if(subtitleHours!.length == 4)
-        {
+
+        if (subtitleHours!.length == 4) {
           subtitleHours = "0$subtitleHours";
         }
 
+        subtitleHours ??= "erro";
+
       }
-
     });
+
     return subtitleHours!.replaceAll(".", ":");
+
   }
-
-
-
-
 }
-
-

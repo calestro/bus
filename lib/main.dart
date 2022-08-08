@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'Activy/mainactivy.dart';
-import 'firebase_options.dart';
+import 'Firebase/firebase_options.dart';
 
 
 
@@ -19,5 +19,5 @@ void main () async{
 }
 
 void teste(){
-
+print(DateTime.now().toLocal().weekday);
 }
