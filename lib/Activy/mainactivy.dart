@@ -20,7 +20,7 @@ class _MainActivyState extends State<MainActivy> {
   void initState() {
     super.initState();
     //cada minuto que passa e atz o stream
-    Timer(const Duration(seconds: 60), () {setState(() {});});
+    Timer.periodic(const Duration(seconds: 40), (Timer t) {setState(() {print("reload");});});
   }
 
 
@@ -28,6 +28,8 @@ class _MainActivyState extends State<MainActivy> {
   Widget build(BuildContext context) {
 
     var wd = MediaQuery.of(context).size.width;
+    var hg = MediaQuery.of(context).size.height;
+    print(hg);
 
     //Classe responsável por armazenar operações do Firebase
     CallFirebase call = CallFirebase();
@@ -83,13 +85,22 @@ class _MainActivyState extends State<MainActivy> {
                                     color: Colors.pink,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(snapshot.data!.docs[index]["nome"],style: TextStyle(color: Colors.white),),
-                                    subtitleHours != null ? Text(subtitleHours!,style: TextStyle(color: Colors.white),) : const Text(""),
-                                  ],
+                                child: Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(snapshot.data!.docs[index]["nome"],style: const TextStyle(color: Colors.white),textAlign: TextAlign.center,),
+                                        SizedBox(height: hg * 0.065),
+                                        Container(
+                                          alignment: Alignment.bottomCenter,
+                                            child: subtitleHours != null ?
+                                            Text(subtitleHours!,style: const TextStyle(color: Colors.white),textAlign: TextAlign.end)
+                                                : const Text("")),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 ),
 
