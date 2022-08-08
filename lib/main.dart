@@ -11,8 +11,14 @@ void main () async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  teste();
   runApp(const MaterialApp(
     home: MainActivy(),
   ));
+
+}
+
+void teste(){
+
 
 }
