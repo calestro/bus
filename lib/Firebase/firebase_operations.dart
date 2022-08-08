@@ -5,7 +5,7 @@ class CallFirebase {
 
 
   //retorna para o firebase os onibus com os horarios
-  streamFirebase() {
+  streamFirebaseHome() {
 
     var h = DateTime.now().toLocal().hour;
     var m = DateTime.now().toLocal().minute;
@@ -91,7 +91,7 @@ class CallFirebase {
   }
 
   //pesquisa a hora no array para exibir a hora certa e converte para exibição
-  subtitleHour(snapshot, index) {
+  subHourHome(snapshot, index) {
 
     String? subtitleHours;
 
@@ -119,4 +119,20 @@ class CallFirebase {
     return subtitleHours!.replaceAll(".", ":");
 
   }
+
+  //retorna o stream da guia Horarios
+  streamFirebaseHorarios(){
+    return FirebaseFirestore.instance.collection(dayReturns()).snapshots();
+  }
+
+  //Abrir Pagina de Horarios Selecionado
+  busSelect(snapshot, index) {
+    Map map ={
+      "nome":snapshot.data!.docs[index]["nome"],
+      "HORARIO":snapshot.data!.docs[index]["HORARIO"],
+    };
+    return map;
+  }
+
+
 }

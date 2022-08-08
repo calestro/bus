@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bus/Compents/theme.dart';
-import 'package:bus/Firebase/firebase_home_activy.dart';
+import 'package:bus/Firebase/firebase_operations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +12,19 @@ class FirebaseStreamHome extends StatefulWidget {
 }
 
 class _FirebaseStreamHomeState extends State<FirebaseStreamHome> {
-
+Timer? _timer;
   @override
   void initState() {
     super.initState();
     //cada minuto que passa e atz o stream
-    Timer.periodic(const Duration(seconds: 40), (Timer t) {setState(() {});});
+    _timer =Timer.periodic(const Duration(seconds: 40), (Timer t) {setState(() {});});
+  }
+  @override
+  void dispose() {
+    // quando widget morre o timer e cancelado
+    _timer!.cancel();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -35,14 +42,17 @@ class _FirebaseStreamHomeState extends State<FirebaseStreamHome> {
         ),
         Expanded(
           child: StreamBuilder<QuerySnapshot>(
-              stream: call.streamFirebase(),
+              stream: call.streamFirebaseHome(),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   //Testando Conexão
-                  case ConnectionState.none:
                   case ConnectionState.waiting:
                     return const Center(
                       child: CircularProgressIndicator(),
+                    );
+                  case ConnectionState.none:
+                    return const Center(
+                      child: Text("Sem Internet")
                     );
                   default:
                     // retorno da Stream para Grid
@@ -56,15 +66,7 @@ class _FirebaseStreamHomeState extends State<FirebaseStreamHome> {
                           padding: const EdgeInsets.all(10),
                           child: GridTile(
                             child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.pinkAccent,
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: const Color(0xFFaf164a),
-                                  width: 3.0,
-                                  style: BorderStyle.solid,
-                                ),
-                              ),
+                              decoration: myStyle.boxTile,
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.all(5),
@@ -85,7 +87,7 @@ class _FirebaseStreamHomeState extends State<FirebaseStreamHome> {
                                           alignment: Alignment.bottomCenter,
                                           child: Text(
                                               call
-                                                  .subtitleHour(snapshot, index)
+                                                  .subHourHome(snapshot, index)
                                                   .toString(),
                                               style: myStyle.subtitle),
                                         ),

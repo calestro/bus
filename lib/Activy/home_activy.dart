@@ -1,3 +1,4 @@
+import 'package:bus/Activy/stream_horario.dart';
 import 'package:bus/Compents/theme.dart';
 import 'package:bus/Activy/stream_home.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,12 @@ class _MainActivyState extends State<MainActivy> {
   static const List<Widget> _widgetOptions = <Widget>[
 
     FirebaseStreamHome(),
-
-    Text(
-      'Page 1',
-    ),
+    HorarioList(),
     Text(
       'Page 2',
     ),
+
+
   ];
   void _onItemTapped(int index) {
     setState(() {
