@@ -44,11 +44,6 @@ class _MainActivyState extends State<MainActivy> {
   @override
   Widget build(BuildContext context) {
 
-    var wd = MediaQuery.of(context).size.width;
-
-
-
-
     return Scaffold(
       backgroundColor: Colors.pink,
       appBar: AppBar(
@@ -76,12 +71,12 @@ class _MainActivyState extends State<MainActivy> {
         ],
       ),
   bottomNavigationBar: BottomNavigationBar(
-    items: [
+    items:
+    const [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
       BottomNavigationBarItem(icon: Icon(Icons.bus_alert), label: "Horários"),
       BottomNavigationBarItem(icon: Icon(Icons.help_rounded), label: "3"),
     ],
-
     backgroundColor: Colors.grey[200],
     selectedItemColor: Colors.amber[800],
     unselectedItemColor: Colors.pink,
