@@ -12,20 +12,19 @@ class DescriptionActivy extends StatelessWidget {
     MyStyle myStyle = MyStyle();
 
 
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-              child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(map["nome"], style:myStyle.subtitle,)
-              ),
-
-          ),
-
-        ],
+    return Scaffold(
+      appBar:myStyle.appBar,
+      backgroundColor: Colors.pink,
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: myStyle.boxMain,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const SizedBox(height: 20),
+        Text(map["nome"], style:myStyle.subtitle),
+          ],
+        ),
       ),
     );
   }

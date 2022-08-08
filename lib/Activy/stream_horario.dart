@@ -6,40 +6,22 @@ import 'package:flutter/material.dart';
 
 
 class HorarioList extends StatefulWidget {
-  const HorarioList({Key? key, this.back = false}) : super(key: key);
-  final bool back;
+  const HorarioList({Key? key,}) : super(key: key);
   @override
   State<HorarioList> createState() => _HorarioListState();
 }
 
-int _selectPage = 0;
-Map? map;
 
 class _HorarioListState extends State<HorarioList> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      _selectPage = 0;
-    });
-  }
+
   @override
   Widget build(BuildContext context) {
 
     CallFirebase call = CallFirebase();
     MyStyle myStyle = MyStyle();
 
-    if(map == null){
-      setState((){_selectPage = 0;});
-    }
+    Map? map;
 
-    switch (_selectPage) {
-
-      case 1:
-        return DescriptionActivy(map: map!);
-
-      default:
         return Column(
           children: [
             const SizedBox(height: 20,),
@@ -67,9 +49,7 @@ class _HorarioListState extends State<HorarioList> {
                                         style: myStyle.title),
                                     onTap: () {
                                       map = call.busSelect(snapshot, index);
-                                      setState(() {
-                                        _selectPage = 1;
-                                      });
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => DescriptionActivy(map: map!)));
                                     },
                                   ),
                                 ),
@@ -82,6 +62,5 @@ class _HorarioListState extends State<HorarioList> {
             ),
           ],
         );
-    }
   }
 }

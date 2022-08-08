@@ -73,12 +73,7 @@ class _MainActivyState extends State<MainActivy> {
       onWillPop: onTap,
       child: Scaffold(
         backgroundColor: Colors.pink,
-        appBar: AppBar(
-          title: const Text("Estação Livre"),
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: Colors.pink,
-        ),
+        appBar:myStyle.appBar,
         body:Container(
           decoration: myStyle.boxMain,
           child: _widgetOptions.elementAt(_selectedIndex),

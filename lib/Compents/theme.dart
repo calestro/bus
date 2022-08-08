@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 
 class MyStyle{
+  //appBar
+  AppBar appBar = AppBar(
+      title: const Text("Estação Livre"),
+      centerTitle: true,
+      elevation: 0,
+      backgroundColor: Colors.pink);
 
   //Text Style
   final TextStyle advertion = const TextStyle(color: Colors.red);
