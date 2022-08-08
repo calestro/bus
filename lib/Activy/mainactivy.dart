@@ -67,11 +67,9 @@ class _MainActivyState extends State<MainActivy> {
                             snapshot.data!.docs[index]["HORARIO"].forEach((element) {
                             if(double.parse(element) > call.hourToComplete(DateTime.now().toLocal().hour,DateTime.now().toLocal().minute)
                                 && (double.parse(element) < call.houradditing10(DateTime.now().toLocal().hour,DateTime.now().toLocal().minute))){
-                              if(subtitleHours != null){subtitleHours = "${subtitleHours!} /$element";}
+                              if(subtitleHours != null){subtitleHours = "${subtitleHours!} / $element";}
                               else {
                                 subtitleHours = element.toString();
-
-
                               }
                             }
 
@@ -89,8 +87,8 @@ class _MainActivyState extends State<MainActivy> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(snapshot.data!.docs[index]["nome"]),
-                                    subtitleHours != null ? Text(subtitleHours!) : const Text(""),
+                                    Text(snapshot.data!.docs[index]["nome"],style: TextStyle(color: Colors.white),),
+                                    subtitleHours != null ? Text(subtitleHours!,style: TextStyle(color: Colors.white),) : const Text(""),
                                   ],
                                 ),
                                 ),
@@ -103,10 +101,10 @@ class _MainActivyState extends State<MainActivy> {
                   }
                 }
             ),
-            //bottom
           ],
         ),
       ),
+
     );
   }
 }
