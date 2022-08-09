@@ -1,3 +1,4 @@
+import 'package:bus/Activy/Info_Activy.dart';
 import 'package:bus/Activy/stream_horario.dart';
 import 'package:bus/Compents/theme.dart';
 import 'package:bus/Activy/stream_home.dart';
@@ -23,10 +24,7 @@ class _MainActivyState extends State<MainActivy> {
 
     FirebaseStreamHome(),
     HorarioList(),
-    Text(
-      'Page 2',
-    ),
-
+    InfoActivy(),
 
   ];
   void _onItemTapped(int index) {
@@ -83,7 +81,7 @@ class _MainActivyState extends State<MainActivy> {
       const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(icon: Icon(Icons.bus_alert), label: "Horários"),
-        BottomNavigationBarItem(icon: Icon(Icons.help_rounded), label: "3"),
+        BottomNavigationBarItem(icon: Icon(Icons.help_rounded), label: "Informações"),
       ],
       backgroundColor: Colors.grey[200],
       selectedItemColor: Colors.amber[800],

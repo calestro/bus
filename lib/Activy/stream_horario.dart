@@ -48,6 +48,7 @@ class _HorarioListState extends State<HorarioList> {
                                         snapshot.data!.docs[index]["nome"],
                                         style: myStyle.title),
                                     onTap: () {
+                                      snapshot.data!.docs[index].id;
                                       map = call.busSelect(snapshot, index);
                                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => DescriptionActivy(map: map!)));
                                     },

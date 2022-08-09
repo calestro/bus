@@ -129,7 +129,7 @@ class CallFirebase {
   busSelect(snapshot, index) {
     Map map ={
       "nome":snapshot.data!.docs[index]["nome"],
-      "HORARIO":snapshot.data!.docs[index]["HORARIO"],
+      "reference":snapshot.data!.docs[index].id,
     };
     return map;
   }

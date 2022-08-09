@@ -22,11 +22,16 @@ class DescriptionActivy extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             const SizedBox(height: 20),
-        Text(map["nome"], style:myStyle.subtitle),
-          ],
+            Text(map["nome"], style:myStyle.subtitle),
+            // Carrousel
+
+            //
+
+
+            ]
         ),
-      ),
-    );
+        ),
+      );
   }
 
 }
