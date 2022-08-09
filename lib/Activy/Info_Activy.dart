@@ -24,18 +24,25 @@ class InfoActivy extends StatelessWidget {
             SizedBox(height: 10),
             Text("Aplicativo regido na licença M.I.T "),
             SizedBox(height: 10),
-            Text("Github: https://github.com/calestro/bus"),
-            SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Git Hub "),
-                Text("Linkendin "),
-                Text("Facebook "),
+                myStyle.myIcon(22,"git.png"),
+                Text("   https://github.com/calestro/bus"),
               ],
             ),
+            SizedBox(height: 80),
 
-            Text("Desenvolvedor: Leonir Jùnior Ribeiro Calestro"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                myStyle.myIcon(80, "gitBig.png"),
+                myStyle.myIcon(40, "link.png"),
+                myStyle.myIcon(65, "face.png"),
+              ],
+            ),
+            Text("Desenvolvedor: Leonir Jùnior Ribeiro Calestro" ,style:TextStyle(fontWeight: FontWeight.bold)),
+
 
 
           ],

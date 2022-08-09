@@ -2,8 +2,7 @@
     package="com.example.bus">
    <application
 
-    <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="YOUR KEY HERE"/>
+
 
         android:label="bus"
         android:name="${applicationName}"

@@ -9,7 +9,18 @@ class MyStyle{
       elevation: 0,
       backgroundColor: Colors.pink);
 
-//Color
+//icon
+  myIcon(double size, img){
+    return Container(
+      width: size,
+      height: size,
+      child: Image.asset("img/$img")
+    );
+  }
+
+
+
+  //Color
 
 
 
