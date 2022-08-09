@@ -4,6 +4,8 @@ import 'package:bus/Compents/theme.dart';
 import 'package:bus/Activy/stream_home.dart';
 import 'package:flutter/material.dart';
 
+import '../Compents/pop_up_exit.dart';
+
 
 
 
@@ -21,12 +23,11 @@ class _MainActivyState extends State<MainActivy> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-
     FirebaseStreamHome(),
     HorarioList(),
     InfoActivy(),
-
   ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -38,37 +39,8 @@ class _MainActivyState extends State<MainActivy> {
 
     MyStyle myStyle = MyStyle();
 
-    //Pergunta ao usuário se ele realmente quer sair
-    Future<bool> onTap() async{
-      return await showDialog(
-        context: context,
-        builder: (context) =>AlertDialog(
-          title:const Text('Sair do App'),
-
-          content:const Text('Você quer sair do App ?'),
-
-          actions: <Widget>[
-
-            GestureDetector(
-              onTap: () => Navigator.of(context).pop(true),
-              child: const Text("SIM"),
-            ),
-
-            const SizedBox(height: 16),
-
-            GestureDetector(
-              onTap: () => Navigator.of(context).pop(false),
-              // ignore: prefer_const_constructors
-              child: Text("NÃO"),
-            ),
-          ],
-        ),
-      ) ?? false;
-
-    }
-
     return WillPopScope(
-      onWillPop: onTap,
+      onWillPop: (){return reallyExit(context);},
       child: Scaffold(
         backgroundColor: Colors.pink,
         appBar:myStyle.appBar,

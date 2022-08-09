@@ -9,6 +9,10 @@ class MyStyle{
       elevation: 0,
       backgroundColor: Colors.pink);
 
+//Color
+
+
+
   //Text Style
   final TextStyle advertion = const TextStyle(color: Colors.red);
   final TextStyle title = const TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
