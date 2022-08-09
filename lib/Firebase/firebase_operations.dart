@@ -4,6 +4,21 @@ class CallFirebase {
   List busSearch = [];
 
 
+  //Retorna Hora atual ou Minuto
+   timeNow(String type){
+    int h = DateTime.now().toLocal().hour;
+    int m = DateTime.now().toLocal().minute;
+     if(type == "m"){
+      return m;
+    }
+    else if(type == "h"){
+    return h;
+    }
+
+  return double.parse(h.toString() + "." + m.toString());
+
+  }
+
   //retorna para o firebase os onibus com os horarios
   streamFirebaseHome() {
 
@@ -26,8 +41,14 @@ class CallFirebase {
   }
 
   //Retorna o dia para pesquisa no Firebase
-  String dayReturns() {
+  String dayReturns({bool isTomorrow = false}) {
     int day = DateTime.now().toLocal().weekday;
+    if(isTomorrow = true){
+      day + 1;
+      if(day == 8){
+        day = 1;
+      }
+    }
     switch (day) {
       case 6:
         {
@@ -132,6 +153,13 @@ class CallFirebase {
       "reference":snapshot.data!.docs[index].id,
     };
     return map;
+  }
+
+  //retorna para o stream description
+  streamFirebaseDescription(id,bool isTomorrow){
+    print(isTomorrow);
+    return FirebaseFirestore.instance.collection(dayReturns(isTomorrow: isTomorrow)).where("nome", isEqualTo: id).snapshots();
+
   }
 
 

@@ -13,7 +13,7 @@ class MyStyle{
   final TextStyle advertion = const TextStyle(color: Colors.red);
   final TextStyle title = const TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
   final TextStyle subtitle = const TextStyle(color: Colors.amber, fontSize: 19, fontWeight: FontWeight.bold);
-
+  final TextStyle titleBus = const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold);
 
 //BoxDecoration Background
 final BoxDecoration boxMain = const BoxDecoration(
